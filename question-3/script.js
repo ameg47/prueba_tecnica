@@ -13,11 +13,27 @@ console.log(`Running question #3 with args ${args}`)
  * @param {String} str - String to be evaluated
  * @returns {Boolean} Returns true if string is valid.
  */
+
 function parenthesisChecker(str) {
-  // TODO: Implement validation logic
+  const brackets={
+    "(":")",
+    "[":"]",
+    "{":"}"
+  }
+  const openBrackets = [];
+  
+  for (let i = 0; i < str.length; i++) {
+      if (brackets[str[i]]) {
+        openBrackets.push(str[i]);
+      } 
+      else if (Object.values(brackets).includes(str[i]) && brackets[openBrackets.pop()] !== str[i]) {
+        return false;
+      }
+  }
+
   return true;
 }
 
-const isValid = parenthesisChecker(args);
+const isValid = parenthesisChecker(args.toString());
 console.log(`parenthesisChecker("${args}") = ${isValid}`);
 

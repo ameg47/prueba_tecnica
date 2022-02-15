@@ -22,4 +22,22 @@
 
 # Razonamiento
 
-_Escribir aquí los supuestos asumidos, reflexiones y explicaciones de la solución_
+Para correr el script es necesario realizar npm i para installar el paquete necesario para leer el csv!
+
+Primero debí encontrar una forma para leer el archivo csv. Al leerlo la información puede tratarse como un array de objetos, donde cada objeto
+tiene el formato de BrowsingEvents { user: x, entityId: x, entityType: x, eventType: x}. Para luego utilizar y crear el output necesito 
+guardar en una variable esa información que leo. El resultado final debe mostrar los clicks, impressions etc de cada producto por ende la 
+información se agrupa al rededor de esa variable.
+
+En un principio lo pense como un array de objetos pero para accesibilidad más fácil consideré guardarlo dentro de un objeto, es decir, el 
+objeto contiene como propiedades las id unicas de cada producto, para identificarlo mas facilmente. Dentro de esa propiedad se guarda el 
+objeto (la fila) que se renderizara en la tabla final.
+
+Entonces, se lee/recorre el csv, por cada elemento se evalua si el producto ya existe en el objeto, es decir, si la propiedad que equivale a 
+entityId se encuentra en el objeto. Si no es así, se agrega el mismo con la porpiedad entityId y estableciendo en 1 la propiedad impression o 
+click según corresponda. Si existe se le suma 1 a impression o click según el caso y se calcula el ctr.
+
+Una vez se hayan pasado todos los elementos se procede a crear el archivo output con la tabla correspondiente. Para ello en la función 
+extractAsCSV se crean los headers de la tabla y se recorre el objeto pasando a un array los productos. Se concatenan ambos y con esa 
+información se crea el archivo output.csv
+
